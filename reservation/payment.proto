@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option go_package = "/genproto/payment";
+
+package payment;
+
+
+// Payment Service definition
+service PaymentService {
+    rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+    rpc GetPayment (GetPaymentRequest) returns (GetPaymentResponse);
+    rpc UpdatePayment (UpdatePaymentRequest) returns (UpdatePaymentResponse);
+    rpc DeletePayment (DeletePaymentRequest) returns (DeletePaymentResponse);
+    rpc CheckPaymentStatus (CheckPaymentStatusRequest) returns (CheckPaymentStatusResponse);
+}
+
+// Payment message definition
+message Payment {
+    string id = 1;                 
+    string reservation_id = 2;     
+    double amount = 3;
+    string payment_method = 4;
+    string payment_status = 5;
+    string created_at = 6;         
+    string updated_at = 7;         
+    int64 deleted_at = 8;
+}
+
+// Requests and Responses for Payment CRUD
+message CreatePaymentRequest {
+    Payment payment = 1;
+}
+
+message CreatePaymentResponse {
+    Payment payment = 1;
+}
+
+message GetPaymentRequest {
+    string id = 1;                 
+}
+
+message GetPaymentResponse {
+    Payment payment = 1;
+}
+
+message UpdatePaymentRequest {
+    Payment payment = 1;
+}
+
+message UpdatePaymentResponse {
+    Payment payment = 1;
+}
+
+message DeletePaymentRequest {
+    string id = 1;                 
+}
+
+message DeletePaymentResponse {
+    string message = 1;
+}
+
+message CheckPaymentStatusRequest {
+    string id = 1;                 
+}
+
+message CheckPaymentStatusResponse {
+    string payment_status = 1;
+}
+
+

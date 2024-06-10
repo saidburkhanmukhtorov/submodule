@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+option go_package = "/genproto/reservation";
+
+package reservation;
+
+
+service ReservationService {
+    rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse);
+    rpc GetReservation (GetReservationRequest) returns (GetReservationResponse);
+    rpc UpdateReservation (UpdateReservationRequest) returns (UpdateReservationResponse);
+    rpc DeleteReservation (DeleteReservationRequest) returns (DeleteReservationResponse);
+    rpc ListReservations (ListReservationsRequest) returns (ListReservationsResponse);
+    rpc CheckAvailability (CheckAvailabilityRequest) returns (CheckAvailabilityResponse);
+}
+
+
+// Enum for reservation status
+enum ReservationStatus {
+    CONFIRMED = 0;
+    PENDING = 1;
+    CANCELED = 2;
+}
+
+
+// Reservation message definition
+message Reservation {
+    string id = 1;           
+    string user_id = 2;      
+    string restaurant_id = 3;
+    string reservation_time = 4; 
+    ReservationStatus status = 5;
+    string created_at = 6;   
+    string updated_at = 7;   
+}
+
+
+// Requests and Responses for Reservation CRUD
+message CreateReservationRequest {
+    Reservation reservation = 1;
+}
+
+message CreateReservationResponse {
+    Reservation reservation = 1;
+}
+
+message GetReservationRequest {
+    string id = 1; // UUID
+}
+
+message GetReservationResponse {
+    Reservation reservation = 1;
+}
+
+message UpdateReservationRequest {
+    Reservation reservation = 1;
+}
+
+message UpdateReservationResponse {
+    Reservation reservation = 1;
+}
+
+message DeleteReservationRequest {
+    string id = 1; // UUID
+}
+
+message DeleteReservationResponse {
+    string message = 1;
+}
+
+message ListReservationsRequest {}
+
+message ListReservationsResponse {
+    repeated Reservation reservations = 1;
+}
+
+message CheckAvailabilityRequest {
+    string restaurant_id = 1; 
+    string reservation_time = 2; 
+}
+
+message CheckAvailabilityResponse {
+    bool available = 1;
+}
+
+// Requests and Responses for Menu Items
+message ListMenuItemsRequest {
+    string restaurant_id = 1; 
+}
+
+
+

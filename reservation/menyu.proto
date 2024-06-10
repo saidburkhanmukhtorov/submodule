@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = "/genproto/menyu";
+
+
+package menyu;
+
+// Menyu Service definition
+service MenyuService {
+    rpc CreateMenu (CreateMenuRequest) returns (CreateMenuResponse);
+    rpc GetMenu (GetMenuRequest) returns (GetMenuResponse);
+    rpc UpdateMenu (UpdateMenuRequest) returns (UpdateMenuResponse);
+    rpc DeleteMenu (DeleteMenuRequest) returns (DeleteMenuResponse);
+}
+
+// Menyu message definition
+message Menyu {
+    string id = 1;                   
+    string restaurant_id = 2;        
+    string name = 3;
+    string description = 4;
+    double price = 5;
+    string created_at = 6;   // Timestamp with time zone
+    string updated_at = 7;   // Timestamp with time zone
+    int64 deleted_at = 8;
+}
+
+// Requests and Responses for Menyu CRUD
+message CreateMenuRequest {
+    Menyu menyu = 1;
+}
+
+message CreateMenuResponse {
+    Menyu menyu = 1;
+}
+
+message GetMenuRequest {
+    string id = 1;                   
+}
+
+message GetMenuResponse {
+    Menyu menyu = 1;
+}
+
+message UpdateMenuRequest {
+    Menyu menyu = 1;
+}
+
+message UpdateMenuResponse {
+    Menyu menyu = 1;
+}
+
+message DeleteMenuRequest {
+    string id = 1;                   
+}
+
+message DeleteMenuResponse {
+    string message = 1;
+}
+
+
