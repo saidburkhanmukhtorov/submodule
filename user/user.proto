@@ -61,7 +61,7 @@ message User {
   }
   
   message SignInResponse {
-      string token = 1;        // Token could be JWT or another token type
+      string token = 1;       
   }
   
   // Request and Response messages for updating a user

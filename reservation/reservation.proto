@@ -15,21 +15,13 @@ service ReservationService {
 }
 
 
-// Enum for reservation status
-enum ReservationStatus {
-    CONFIRMED = 0;
-    PENDING = 1;
-    CANCELED = 2;
-}
-
-
 // Reservation message definition
 message Reservation {
     string id = 1;           
     string user_id = 2;      
     string restaurant_id = 3;
     string reservation_time = 4; 
-    ReservationStatus status = 5;
+    string status = 5;
     string created_at = 6;   
     string updated_at = 7;   
 }

@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-option go_package = "/genproto/restauran";
+option go_package = "/genproto/restaurant";
 
-package restauran;
-
+package restaurant; 
 
 service RestaurantService {
     rpc CreateRestaurant (CreateRestaurantRequest) returns (CreateRestaurantResponse);
@@ -48,10 +47,6 @@ message UpdateRestaurantResponse {
     Restaurant restaurant = 1;
 }
 
-message ListRestaurantsResponse {
-    repeated Restaurant restaurants = 1;
-}
-
 message DeleteRestaurantRequest {
     string id = 1; 
 }
@@ -60,4 +55,16 @@ message DeleteRestaurantResponse {
     string message = 1;
 }
 
-message ListRestaurantsRequest {}
+message ListRestaurantsRequest {
+
+    string name = 1;               
+    string address = 2;           
+
+    // Pagination
+    int32 page = 3;                
+    int32 limit = 4;              
+}
+
+message ListRestaurantsResponse {
+    repeated Restaurant restaurants = 1;
+}

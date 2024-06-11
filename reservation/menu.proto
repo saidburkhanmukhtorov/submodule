@@ -1,20 +1,19 @@
 syntax = "proto3";
 
-option go_package = "/genproto/menyu";
+option go_package = "/genproto/menu";
+package menu;
 
-
-package menyu;
-
-// Menyu Service definition
-service MenyuService {
+// Menu Service definition
+service MenuService {
     rpc CreateMenu (CreateMenuRequest) returns (CreateMenuResponse);
     rpc GetMenu (GetMenuRequest) returns (GetMenuResponse);
     rpc UpdateMenu (UpdateMenuRequest) returns (UpdateMenuResponse);
     rpc DeleteMenu (DeleteMenuRequest) returns (DeleteMenuResponse);
+    rpc GetAllMenus (GetAllMenusRequest) returns (GetAllMenusResponse); // New method
 }
 
-// Menyu message definition
-message Menyu {
+// Menu message definition
+message Menu {
     string id = 1;                   
     string restaurant_id = 2;        
     string name = 3;
@@ -25,13 +24,13 @@ message Menyu {
     int64 deleted_at = 8;
 }
 
-// Requests and Responses for Menyu CRUD
+// Requests and Responses for Menu CRUD
 message CreateMenuRequest {
-    Menyu menyu = 1;
+    Menu menu = 1; 
 }
 
 message CreateMenuResponse {
-    Menyu menyu = 1;
+    Menu menu = 1; 
 }
 
 message GetMenuRequest {
@@ -39,15 +38,15 @@ message GetMenuRequest {
 }
 
 message GetMenuResponse {
-    Menyu menyu = 1;
+    Menu menu = 1; 
 }
 
 message UpdateMenuRequest {
-    Menyu menyu = 1;
+    Menu menu = 1; 
 }
 
 message UpdateMenuResponse {
-    Menyu menyu = 1;
+    Menu menu = 1; 
 }
 
 message DeleteMenuRequest {
@@ -58,4 +57,15 @@ message DeleteMenuResponse {
     string message = 1;
 }
 
+// Request and Response for GetAllMenus
+message GetAllMenusRequest {
+    string restaurant_id = 1;
+    string name = 2;
+    string description = 3;
+    double minPrice = 4;
+    double maxPrice = 5;
+}
 
+message GetAllMenusResponse {
+    repeated Menu menus = 1;
+}
