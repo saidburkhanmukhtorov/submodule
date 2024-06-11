@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "/genproto/restaurant";
+option go_package = "/restaurant";
 
 package restaurant; 
 
@@ -21,6 +21,7 @@ message Restaurant {
     string description = 5;
     string created_at = 6;   
     string updated_at = 7;   
+    int64 deleted_at = 8;
 }
 
 message CreateRestaurantRequest {

@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-option go_package = "/genproto/reservation";
+option go_package = "/reservation";
 
 package reservation;
-
 
 service ReservationService {
     rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse);
@@ -11,21 +10,19 @@ service ReservationService {
     rpc UpdateReservation (UpdateReservationRequest) returns (UpdateReservationResponse);
     rpc DeleteReservation (DeleteReservationRequest) returns (DeleteReservationResponse);
     rpc ListReservations (ListReservationsRequest) returns (ListReservationsResponse);
-    rpc CheckAvailability (CheckAvailabilityRequest) returns (CheckAvailabilityResponse);
+    rpc CheckAvailability (CheckAvailabilityRequest) returns (CheckAvailabilityResponse); 
 }
-
 
 // Reservation message definition
 message Reservation {
     string id = 1;           
     string user_id = 2;      
     string restaurant_id = 3;
-    string reservation_time = 4; 
-    string status = 5;
-    string created_at = 6;   
-    string updated_at = 7;   
+    string reservation_time = 4;  // Consider using a well-defined format like RFC 3339
+    string status = 5;             // Consider using an enum for better type safety
+    string created_at = 6;        // Consider using a well-defined format like RFC 3339
+    string updated_at = 7;        // Consider using a well-defined format like RFC 3339
 }
-
 
 // Requests and Responses for Reservation CRUD
 message CreateReservationRequest {
@@ -34,6 +31,8 @@ message CreateReservationRequest {
 
 message CreateReservationResponse {
     Reservation reservation = 1;
+    // Consider adding an optional 'Error' message field for error handling:
+    // Error error = 2;
 }
 
 message GetReservationRequest {
@@ -42,6 +41,7 @@ message GetReservationRequest {
 
 message GetReservationResponse {
     Reservation reservation = 1;
+    // Error error = 2;
 }
 
 message UpdateReservationRequest {
@@ -50,6 +50,7 @@ message UpdateReservationRequest {
 
 message UpdateReservationResponse {
     Reservation reservation = 1;
+    // Error error = 2;
 }
 
 message DeleteReservationRequest {
@@ -58,9 +59,20 @@ message DeleteReservationRequest {
 
 message DeleteReservationResponse {
     string message = 1;
+
 }
 
-message ListReservationsRequest {}
+message ListReservationsRequest {
+    string user_id = 1;              // Filter by user ID
+    string restaurant_id = 2;       // Filter by restaurant ID
+    string status = 3;                // Filter by reservation status
+    string start_time = 4;           // Filter by reservation start time 
+    string end_time = 5;             // Filter by reservation end time
+
+    // Pagination
+    int32 page = 6;                  
+    int32 limit = 7;                 
+}
 
 message ListReservationsResponse {
     repeated Reservation reservations = 1;
@@ -68,17 +80,9 @@ message ListReservationsResponse {
 
 message CheckAvailabilityRequest {
     string restaurant_id = 1; 
-    string reservation_time = 2; 
+    string reservation_time = 2;
 }
 
 message CheckAvailabilityResponse {
     bool available = 1;
 }
-
-// Requests and Responses for Menu Items
-message ListMenuItemsRequest {
-    string restaurant_id = 1; 
-}
-
-
-
