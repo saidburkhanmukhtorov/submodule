@@ -14,6 +14,7 @@ service ReservationService {
     rpc FoodList(OrderFoodListReq) returns (OrderFoodListRes);
     rpc OrderFood(OrderFoodReq) returns (OrderFoodRes);
     rpc IsValidReservation(IsValidReq) returns (IsValidRes);
+    rpc OrderBill(OrderBillReq) returns (OrderBillRes);
 }
 
 // Reservation message definition
@@ -27,6 +28,13 @@ message Reservation {
     string updated_at = 7;        // Consider using a well-defined format like RFC 3339
 }
 
+message OrderBillReq{
+    string reservation_id = 1;
+}
+
+message OrderBillRes{
+    string payment_id = 1;
+}
 message IsValidReq{
     string id = 1;
 }
